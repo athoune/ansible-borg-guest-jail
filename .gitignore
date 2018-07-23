@@ -1,2 +1,4 @@
 .vagrant
 *.retry
+demo/key
+demo/key.pub
