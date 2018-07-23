@@ -9,3 +9,8 @@
     - auditd
     - borgbackup
 
+- name: Borg user
+  user:
+    name: "{{ borg_user }}"
+    comment: Borg user
+    state: present
