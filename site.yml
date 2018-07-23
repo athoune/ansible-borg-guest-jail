@@ -1,0 +1,7 @@
+---
+
+- hosts: borg
+  roles:
+      - role: borg-guest-jail
+        tags: borg
+

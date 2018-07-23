@@ -1,0 +1,11 @@
+---
+
+- name: Some packages
+  apt:
+    pkg: "{{ item }}"
+    cache_valid_time: 3600
+  with_items:
+    - libpam-apparmor
+    - auditd
+    - borgbackup
+
