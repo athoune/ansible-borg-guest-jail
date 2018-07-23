@@ -1,0 +1,11 @@
+[borg]
+borg.example.com
+
+[all:vars]
+ansible_user=vagrant
+ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
+ansible_become=yes
+ansible_become_method=sudo
+
+[borg:vars]
+
