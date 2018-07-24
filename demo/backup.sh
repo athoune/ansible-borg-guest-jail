@@ -8,14 +8,12 @@ export BORG_PASSPHRASE='prout'
 export BORG_RSH='ssh -i key'
 
 borg create                         \
-    --verbose                       \
     --filter AME                    \
     --list                          \
     --stats                         \
     --show-rc                       \
     --compression lz4               \
     --exclude-caches                \
-    --debug                         \
                                     \
     borg@borg.example.com:backup::'{now}'                        \
     ./stuff                         \
