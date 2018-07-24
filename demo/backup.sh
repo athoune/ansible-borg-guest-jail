@@ -2,9 +2,6 @@
 
 ssh -i key borg@borg.example.com hostname
 
-# Setting this, so the repo does not need to be given on the commandline:
-export BORG_REPO=ssh://borg@borg.example.com/~/backup/main
-
 # Setting this, so you won't be asked for your repository passphrase:
 export BORG_PASSPHRASE='prout'
 
@@ -20,5 +17,5 @@ borg create                         \
     --exclude-caches                \
     --debug                         \
                                     \
-    '::backup-{now}'                        \
+    borg@borg.example.com:backup::'{now}'                        \
     ./stuff                         \
