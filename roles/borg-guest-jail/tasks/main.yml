@@ -23,7 +23,7 @@
 
 - name: Authorized
   authorized_key:
-    key: "{% if borg_key.startswith('@') %}{{ lookup('file', borg_key[1:]) }}{% else %}{{ borg_key }}{% endif %}"
     user: "{{ borg_user }}"
-    key_options : >
+    key: "{% if borg_key.startswith('@') %}{{ lookup('file', borg_key[1:]) }}{% else %}{{ borg_key }}{% endif %}"
+    key_options : >-
         command="/usr/bin/borg serve --umask=077",no-port-forwarding,no-x11-forwarding,no-agent-forwarding,no-pty,no-user-rc
