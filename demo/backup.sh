@@ -1,6 +1,5 @@
 #!/bin/sh
 
-ssh -i key borg@borg.example.com hostname
 
 # Setting this, so you won't be asked for your repository passphrase:
 export BORG_PASSPHRASE='prout'
