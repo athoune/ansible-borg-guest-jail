@@ -8,4 +8,5 @@ ansible_become=yes
 ansible_become_method=sudo
 
 [borg:vars]
+borg_key=@./demo/key.pub
 
