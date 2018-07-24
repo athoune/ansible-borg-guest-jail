@@ -9,8 +9,19 @@
     - auditd
     - borgbackup
 
+- name: Borg group
+  group:
+    name: borg
+
+
 - name: Borg user
   user:
     name: "{{ borg_user }}"
     comment: Borg user
     state: present
+    groups: borg
+
+- name: Authorized
+  authorized_key:
+    key: "{% if borg_key.startswith('@') %}{{ lookup('file', borg_key[1:]) }}{% else %}{{ borg_key }}{% endif %}"
+    user: "{{ borg_user }}"
