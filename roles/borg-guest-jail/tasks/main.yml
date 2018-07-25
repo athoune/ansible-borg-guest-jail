@@ -6,6 +6,7 @@
     cache_valid_time: 3600
   with_items:
     - libpam-apparmor
+    - apparmor-utils
     - auditd
     - borgbackup
 
@@ -25,5 +26,42 @@
   authorized_key:
     user: "{{ borg_user }}"
     key: "{% if borg_key.startswith('@') %}{{ lookup('file', borg_key[1:]) }}{% else %}{{ borg_key }}{% endif %}"
-    key_options : >-
-        command="/usr/bin/borg serve --umask=077",no-port-forwarding,no-x11-forwarding,no-agent-forwarding,no-pty,no-user-rc
+    #key_options : >-
+        #command="/usr/bin/borg serve --umask=077",no-port-forwarding,no-x11-forwarding,no-agent-forwarding,no-pty,no-user-rc
+
+- name: pam
+  copy:
+    src: borg
+    dest: /etc/pam.d/borg
+    owner: root
+    group: root
+    mode: 0400
+
+- name: grub folder
+  file:
+    state: directory
+    path: /etc/default/grub.d
+    owner: root
+    group: root
+    mode: 0500
+
+- name: grub setting
+  copy:
+    dest: /etc/default/grub.d/apparmor.cfg
+    owner: root
+    group: root
+    mode: 0400
+    content: >
+        GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"
+  notify: update-grub
+
+- name: apparmor
+  copy:
+    src: "{{ item }}"
+    dest: /etc/apparmor.d/{{ item }}
+    owner: root
+    group: root
+    mode: 0400
+  with_items:
+    - pam_roles
+    - pam_group_borg
